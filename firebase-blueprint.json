@@ -1,0 +1,79 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and mobility preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "totalCo2Saved": { "type": "number" },
+        "totalEcoPoints": { "type": "number" },
+        "activeVehicleId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Vehicle": {
+      "title": "Vehicle",
+      "description": "Vehicle registered by a user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "enum": ["petrol", "diesel", "ev", "bike", "fleet"] },
+        "make": { "type": "string" },
+        "model": { "type": "string" },
+        "efficiency": { "type": "number", "description": "L/100km or Wh/km" },
+        "fuelType": { "type": "string" }
+      },
+      "required": ["userId", "type"]
+    },
+    "Trip": {
+      "title": "Trip",
+      "description": "Recorded trip data",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "vehicleId": { "type": "string" },
+        "origin": { "type": "string" },
+        "destination": { "type": "string" },
+        "distance": { "type": "number" },
+        "duration": { "type": "number" },
+        "co2Produced": { "type": "number" },
+        "co2Saved": { "type": "number" },
+        "ecoScore": { "type": "number" },
+        "pointsEarned": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "vehicleId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/users/{userId}/vehicles/{vehicleId}": {
+      "schema": "Vehicle",
+      "description": "User's vehicles"
+    },
+    "/users/{userId}/trips/{tripId}": {
+      "schema": "Trip",
+      "description": "User's trip history"
+    },
+    "/leaderboard/{userId}": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "points": { "type": "number" },
+          "rank": { "type": "number" }
+        }
+      },
+      "description": "Public leaderboard data"
+    }
+  }
+}

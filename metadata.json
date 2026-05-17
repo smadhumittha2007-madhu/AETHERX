@@ -1,0 +1,11 @@
+{
+  "name": "Remix: AetherX",
+  "description": "A futuristic AI-powered smart mobility platform for sustainable driving, real-time emission analytics, and intelligent eco-routing.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
